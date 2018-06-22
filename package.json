@@ -1,0 +1,23 @@
+{
+  "name": "mock-data-generator",
+  "version": "0.0.1",
+  "description": "Generates data from JSON schema using json-schema-faker/faker.js for ES, HTTP POST, File",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Gansberg",
+  "license": "MIT",
+  "bin": {
+    "mdgen": "index.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chalk": "^2.4.1",
+    "express": "^4.16.3",
+    "faker": "^4.1.0",
+    "json-beautify": "^1.0.1",
+    "json-schema-faker": "^0.5.0-rc15",
+    "yargs": "^11.0.0"
+  }
+}
