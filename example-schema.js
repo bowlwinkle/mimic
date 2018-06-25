@@ -81,9 +81,18 @@ module.exports = {
             type: 'string',
             format: 'email',
             faker: 'internet.email'
+        },
+        tags: {
+            type: 'array',
+            minItems: 1,
+            maxItems: 10,
+            items: {
+                type: 'string',
+                pattern: 'good|bad|ugly|new|deprecated|fancy'
+            }
         }
     },
-    required: ['id', 'name', 'description', 'image', 'type', 'entitlements', 'status', 'streams', 'owner'],
+    required: ['id', 'name', 'description', 'image', 'type', 'entitlements', 'status', 'streams', 'owner', 'tags'],
     definitions: {
         positiveInt: {
             type: 'integer',

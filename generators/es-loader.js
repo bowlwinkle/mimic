@@ -1,6 +1,8 @@
+const fs = require('fs');
 const axios = require('axios');
 const chalk = require('chalk');
 const generate = require('./generator');
+const SchemaLoader = require('./schema-loader');
 
 function putRecord (host, port, index, data) {
     return axios.put(`${host}:${port}/${index}/_doc/${data.id}`, data);
@@ -10,6 +12,10 @@ async function ESLoader({host, port, index, schema, amount, verbose}) {
     esPutVerbose = verbose;
 
     try {
+        if (typeof(schema) !== 'object') {
+            schema = SchemaLoader(schema);
+        }
+
         for (let i = 0; i < amount; i++) {
             const data = await generate(schema);
             await putRecord(host, port, index, data);
