@@ -3,6 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const beautify = require('json-beautify');
 const generate = require('./generator');
+const SchemaLoader = require('./schema-loader');
 
 function writeRecord(file, data) {
     return new Promise((resolve, reject) => {
@@ -14,6 +15,10 @@ async function FileLoader({file, schema, amount, verbose}) {
     let record = []; //Single object
 
     try {
+        if (typeof(schema) !== 'object') {
+            schema = SchemaLoader(schema);
+        }
+
         for (let i = 0; i < amount; i++){
             const data = await generate(schema);
             record.push(data);

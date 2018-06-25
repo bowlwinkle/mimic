@@ -2,17 +2,18 @@
 
 Generate mock data based on a JSON schema and the amount of records you wish to generate.  You can generate to a file, Elasticsearch index, HTTP interface or host the generated data from `mdgen`
 
+Project uses [json-schema-faker](https://github.com/json-schema-faker/json-schema-faker) for constructing the data. See their documentation for writing a schema.
+
 ### Config
-You will need to load a schema before use, otherwise `mdgen` will use the example schema to generate data.
-See Examples below.
+You will need to pass a schema file otherwise, `mdgen` will use the example schema to generate data.
+See CLI examples below...
 
 ### Commands
 ```bash
-mdgen load -s [schema]
-mdgen es -h [hostname] -p [port] -i [index-name] -s [schema] -a [amount] -v [verbose]
-mdgen http -h [hostname] -p [port] -r [resource URL path] -s [schema] -a [amount] -v [verbose]
-mdgen file -f [file] -s [schema] -a [amount] -v [verbose]
-mdgen serve -p [port] -s [schema] -a [amount] -v [verbose]
+mdgen es -h [hostname] -p [port] -i [index-name] -s [schema file path] -a [amount] -v [verbose]
+mdgen http -h [hostname] -p [port] -r [resource URL path] -s [schema file path] -a [amount] -v [verbose]
+mdgen file -f [file] -s [schema file path] -a [amount] -v [verbose]
+mdgen serve -p [port] -s [schema file path] -a [amount] -v [verbose]
 ```
 
 ### Examples

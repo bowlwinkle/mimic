@@ -1,11 +1,13 @@
+const fs = require('fs');
 const readline = require('readline');
 const chalk = require('chalk');
 const generate = require('./generator');
-var express = require('express')
+var express = require('express');
+const SchemaLoader = require('./schema-loader');
 var bodyParser = require('body-parser')
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //Stored records
 let records = {};
@@ -44,6 +46,10 @@ app.post('/', function (req, res) {
 
 async function ServeLoader({port, schema, amount, verbose}) {
     try {
+        if (typeof(schema) !== 'object') {
+            schema = SchemaLoader(schema);
+        }
+
         for (let i = 0; i < amount; i++) {
             const data = await generate(schema);
             records[i] = data;
@@ -62,10 +68,8 @@ async function ServeLoader({port, schema, amount, verbose}) {
 
     app.listen(port, () => console.log(chalk.blue(`localhost:${port}: `) + chalk.green('Press enter key to exit...')));
 
-    //Stop on keypress
+    //Stop on enter
     readline.emitKeypressEvents(process.stdin);
-    // process.stdin.setRawMode(true);
-    // process.stdin.setRawMode(true);
     process.stdin.on('keypress', (str, key) => {
         process.exit();
     });

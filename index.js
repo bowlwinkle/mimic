@@ -7,12 +7,6 @@ const { esOptions, httpOptions, fileOptions, serveOptions } = require('./options
 
 require('yargs')
     .command({
-        command: 'load',
-        desc: 'loads elasticsearch instance with data defined by provided schema',
-        builder: esOptions,
-        handler: argv => loadSchema({ schema: argv.s })
-    })
-    .command({
         command: 'es',
         desc: 'loads elasticsearch instance with data defined by provided schema',
         builder: esOptions,
