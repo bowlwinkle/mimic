@@ -42,3 +42,5 @@ mdgen serve -f ./hello-file.txt -a 100 -v true
 mdgen load -s schema.js
 mdgen serve -p 9999 -a 100
 ```
+
+![mdgen](https://user-images.githubusercontent.com/2514697/41861872-3f79854e-7857-11e8-8716-84301c26dd16.gif)
