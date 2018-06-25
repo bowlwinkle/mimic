@@ -28,7 +28,7 @@ require('yargs')
         command: 'serve',
         desc: 'Serves generated data; incremental index 0...n.  New entries can be posted',
         builder: serveOptions,
-        handler: argv => ServeLoader({ port: argv.p, schema: argv.s, amount: argv.a, verbose: argv.v })
+        handler: argv => ServeLoader({ port: argv.p, schema: argv.s, type: argv.t, amount: argv.a, verbose: argv.v })
     })
     .demandCommand(1, 'You must provide a command')
     .help()
