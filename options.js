@@ -116,6 +116,12 @@ function serveOptions (yargs) {
             default: config.port,
             describe: 'The port to run the auth code server on'
         })
+        .option('t', {
+            alias: 'type',
+            demandOption: false,
+            default: 0,
+            describe: 'Array or object to wrap all resources for root GET request (0 = object, 1 = array)'
+        })
         .option('s', {
             alias: 'schema',
             demandOption: false,
