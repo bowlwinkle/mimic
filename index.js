@@ -16,13 +16,13 @@ require('yargs')
         command: 'http',
         desc: 'Posts generated data to provided resource path',
         builder: httpOptions,
-        handler: argv => HTTPLoader({ host: argv.h, port: argv.p, resourcePath: argv.r, schema: argv.s, amount: argv.a, verbose: argv.v })
+        handler: argv => HTTPLoader({ host: argv.h, port: argv.p, resourcePathList: argv.r, schemaList: argv.s, amount: argv.a, verbose: argv.v, method: argv.m, optionsFile: argv.o })
     })
     .command({
         command: 'file',
         desc: 'Writes generated data to provided file path',
         builder: fileOptions,
-        handler: argv => FileLoader({ file: argv.f, schema: argv.s, amount: argv.a, verbose: argv.v })
+        handler: argv => FileLoader({ fileList: argv.f, schemaList: argv.s, amount: argv.a, verbose: argv.v, optionsFile: argv.o})
     })
     .command({
         command: 'serve',

@@ -46,7 +46,7 @@ function httpOptions (yargs) {
             alias: 'host',
             demandOption: false,
             default: config.elasticHost,
-            describe: 'ElasticSearch URL'
+            describe: 'ElasticSearch URL',
         })
         .option('p', {
             alias: 'port',
@@ -54,17 +54,19 @@ function httpOptions (yargs) {
             default: config.port,
             describe: 'The port to run the auth code server on'
         })
-        .option('p', {
+        .option('r', {
             alias: 'path',
             demandOption: false,
             default: config.path,
             describe: 'Path to POST records',
+            type: 'array'
         })
         .option('s', {
             alias: 'schema',
             demandOption: false,
             default: config.exampleSchema,
-            describe: 'Schema to use for generating data'
+            describe: 'Schema to use for generating data',
+            type: 'array'
         })
         .option('a', {
             alias: 'amount',
@@ -77,6 +79,16 @@ function httpOptions (yargs) {
             demandOption: false,
             default: false,
             describe: 'Verbose mode'
+        })
+        .option('m', {
+            alias: 'method',
+            demandOption: false,
+            describe: 'HTTP Method to use'
+        })
+        .option('o', {
+            alias: 'options',
+            demandOption: false,
+            describe: 'Command line options file'
         });
 }
 
@@ -86,13 +98,15 @@ function fileOptions (yargs) {
             alias: 'file',
             demandOption: false,
             default: config.elasticHost,
-            describe: 'File path to write generated data'
+            describe: 'File path to write generated data',
+            type: 'array'
         })
         .option('s', {
             alias: 'schema',
             demandOption: false,
             default: config.exampleSchema,
-            describe: 'Schema to use for generating data'
+            describe: 'Schema to use for generating data',
+            type: 'array'
         })
         .option('a', {
             alias: 'amount',

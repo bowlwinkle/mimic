@@ -11,32 +11,49 @@ function writeRecord(file, data) {
     });
 }
 
-async function FileLoader({file, schema, amount, verbose}) {
-    let record = []; //Single object
+async function FileLoader({fileList, schemaList, amount, verbose, optionsFile}) {
 
-    try {
-        if (typeof(schema) !== 'object') {
-            schema = SchemaLoader(schema);
-        }
+    if (optionsFile !== undefined){
+        const commandLineOptions = require('../' + optionsFile);
+        fileList = commandLineOptions.files;
+        schemaList = commandLineOptions.schemas;
+        amount = commandLineOptions.amount;
+    }
 
-        for (let i = 0; i < amount; i++){
-            const data = await generate(schema);
-            record.push(data);
+    var promisesArray = []
+    for (var i = 0; i < schemaList.length; i++){
+        var schema = schemaList[i]
+        let record = []; //Single object
+        try {
+            if (typeof(schema) !== 'object') {
+                schema = SchemaLoader(schema);
+            }
 
+            for (let i = 0; i < amount; i++){
+                const data = await generate(schema);
+                console.log(data)
+                record.push(data);
+
+                if (verbose) {
+                    console.log(chalk.blue('Wrote') + chalk.green(JSON.stringify(data)));
+                }
+            }
+
+            promisesArray.push(writeRecord(path.resolve(fileList[i]), beautify(record, null, 2)));
+            //Write all of the data once.
+            // await writeRecord(path.resolve(fileList[i]), beautify(record, null, 2));
+        } catch(e) {
             if (verbose) {
-                console.log(chalk.blue('Wrote') + chalk.green(JSON.stringify(data)));
+                console.error(chalk.red(`Error: ${e}`))
+            } else {
+                console.error(chalk.red(`Error occurred while generating data (run in verbose mode for details)`));
             }
         }
-
-        //Write all of the data once.
-        await writeRecord(path.resolve(file), beautify(record, null, 2));
-    } catch(e) {
-        if (verbose) {
-            console.error(`Error: ${e}`)
-        } else {
-            console.error(`Error occurred while generating data (run in verbose mode for details)`);
-        }
     }
+    Promise.all(promisesArray).catch(e => {
+        console.error(chalk.red(`Error: ${e}`));
+    })
+
 }
 
 module.exports = FileLoader;
