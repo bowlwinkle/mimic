@@ -1,45 +1,5 @@
 const config = require('./config');
 
-function esOptions (yargs) {
-    return yargs
-        .option('h', {
-            alias: 'host',
-            demandOption: false,
-            default: config.elasticHost,
-            describe: 'ElasticSearch URL'
-        })
-        .option('p', {
-            alias: 'port',
-            demandOption: false,
-            default: config.port,
-            describe: 'The port to run the auth code server on'
-        })
-        .option('i', {
-            alias: 'index',
-            demandOption: false,
-            default: config.index,
-            describe: 'Index to PUT records',
-        })
-        .option('s', {
-            alias: 'schema',
-            demandOption: false,
-            default: config.exampleSchema,
-            describe: 'Schema to use for generating data'
-        })
-        .option('a', {
-            alias: 'amount',
-            demandOption: false,
-            default: config.amount,
-            describe: 'Amount of records to generator'
-        })
-        .option('v', {
-            alias: 'verbose',
-            demandOption: false,
-            default: false,
-            describe: 'Verbose mode'
-        });
-}
-
 function httpOptions (yargs) {
     return yargs
         .option('h', {
@@ -82,7 +42,8 @@ function httpOptions (yargs) {
         })
         .option('m', {
             alias: 'method',
-            demandOption: false,
+			demandOption: false,
+			default: "POST",
             describe: 'HTTP Method to use'
         })
         .option('o', {
@@ -157,7 +118,6 @@ function serveOptions (yargs) {
 }
 
 module.exports = {
-    esOptions,
     httpOptions,
     fileOptions,
     serveOptions

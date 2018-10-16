@@ -1,10 +1,10 @@
 const fs = require('fs');
 const readline = require('readline');
 const chalk = require('chalk');
-const generate = require('./generator');
+const generate = require('../generator');
 const express = require('express');
 const cors = require('cors');
-const SchemaLoader = require('./schema-loader');
+const SchemaLoader = require('../schema-loader');
 const bodyParser = require('body-parser')
 var app = express();
 
@@ -138,5 +138,8 @@ async function ServeLoader({port, schema, amount, type, verbose}) {
         process.exit();
     });
 }
+
+//Create a has of the routes
+const
 
 module.exports = ServeLoader;

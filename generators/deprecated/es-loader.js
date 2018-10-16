@@ -1,4 +1,7 @@
-const fs = require('fs');
+// No longer supported
+// Keeping for reference
+
+/*const fs = require('fs');
 const axios = require('axios');
 const chalk = require('chalk');
 const generate = require('./generator');
@@ -33,4 +36,4 @@ async function ESLoader({host, port, index, schema, amount, verbose}) {
     }
 }
 
-module.exports = ESLoader;
+module.exports = ESLoader;*/
