@@ -32,7 +32,7 @@ mdgen file -f ./output.json -s schemas/file-schemas/file-test-schema.json -a 100
 
 **Serve Data**
 ```bash
-mdgen serve -p 9999 -a 100
+mdgen serve -p 9998 -s schemas/server-schemas/sources-sinks.json
 ```
 
 ![mdgen](https://user-images.githubusercontent.com/2514697/41861872-3f79854e-7857-11e8-8716-84301c26dd16.gif)
