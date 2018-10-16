@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const beautify = require('json-beautify');
 const generate = require('./generator');
-const SchemaLoader = require('./schema-loader');
+const { ConsumeFile } = require('../utils');
 
 function writeRecord(file, data) {
     return new Promise((resolve, reject) => {
@@ -12,9 +12,8 @@ function writeRecord(file, data) {
 }
 
 async function FileLoader({fileList, schemaList, amount, verbose, optionsFile}) {
-
     if (optionsFile !== undefined){
-        const commandLineOptions = require('../' + optionsFile);
+        const commandLineOptions = require(optionsFile);
         fileList = commandLineOptions.files;
         schemaList = commandLineOptions.schemas;
         amount = commandLineOptions.amount;
@@ -26,7 +25,7 @@ async function FileLoader({fileList, schemaList, amount, verbose, optionsFile}) 
         let record = []; //Single object
         try {
             if (typeof(schema) !== 'object') {
-                schema = SchemaLoader(schema);
+				schema = ConsumeFile(schema);
             }
 
             for (let i = 0; i < amount; i++){

@@ -1,0 +1,71 @@
+{
+    "type": "object",
+	"required": [
+        "source",
+        "write"
+	],
+	"properties": {
+        "source": {
+            "type": "object",
+            "required": ["name", "stream"],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "pattern": "mockData"
+                },
+                "stream": {
+                    "type": "string",
+                    "faker": "random.word"
+                }
+            }
+        },
+        "write": {
+            "type": "object",
+            "required": [
+                "format",
+                "flushCount",
+                "flushFrequency",
+                "bucket",
+                "region",
+                "encryptionMethod",
+                "kmsKeyId",
+                "acl"
+            ],
+            "properties": {
+                "bucket": {
+                    "type": "string",
+                    "faker": "lorem.word"
+                },
+                "encryptionMethod": {
+                    "type": "string",
+                    "pattern": "AES256"
+                },
+                "flushCount": {
+                    "type": "integer",
+                    "faker": "random.number"
+                },
+                "flushFrequency": {
+                    "type": "integer",
+                    "faker": "random.number"
+                },
+                "format": {
+                    "type": "string",
+                    "pattern": "JSON"
+                },
+                "kmsKeyId": {
+                    "type": "string",
+                    "faker": "lorem.word"
+                },
+                "region": {
+                    "type": "string",
+                    "faker": "address.countryCode"
+                },
+                "acl": {
+                    "type": "string",
+                    "pattern": "public-read"
+                }
+            }
+        }
+
+	}
+}
