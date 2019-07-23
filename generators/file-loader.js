@@ -12,47 +12,50 @@ function writeRecord(file, data) {
 }
 
 async function FileLoader({fileList, schemaList, amount, verbose, optionsFile}) {
-    if (optionsFile !== undefined){
-        const commandLineOptions = require(optionsFile);
-        fileList = commandLineOptions.files;
-        schemaList = commandLineOptions.schemas;
-        amount = commandLineOptions.amount;
-    }
+    try
+    {
+        if (optionsFile !== undefined) {
+            const commandLineOptions = require(optionsFile);
+            fileList = commandLineOptions.files;
+            schemaList = commandLineOptions.schemas;
+            amount = commandLineOptions.amount;
+        }
 
-    var promisesArray = []
-    for (var i = 0; i < schemaList.length; i++){
-        var schema = schemaList[i]
-        let record = []; //Single object
-        try {
-            if (typeof(schema) !== 'object') {
-				schema = ConsumeFile(schema);
-            }
+        var promisesArray = []
+        for (var i = 0; i < schemaList.length; i++) {
+            var schema = schemaList[i]
+            let record = []; //Single object
+            try {
+                if (typeof (schema) !== 'object') {
+                    schema = ConsumeFile(schema);
+                }
 
-            for (let i = 0; i < amount; i++){
-                const data = await generate(schema);
-                console.log(data)
-                record.push(data);
+                for (let i = 0; i < amount; i++) {
+                    const data = await generate(schema);
+                    record.push(data);
 
+                    if (verbose) {
+                        console.log(chalk.blue('Wrote') + chalk.green(JSON.stringify(data)));
+                    }
+                }
+
+                promisesArray.push(writeRecord(path.resolve(fileList[i]), beautify(record, null, 2)));
+                //Write all of the data once.
+                // await writeRecord(path.resolve(fileList[i]), beautify(record, null, 2));
+            } catch (e) {
                 if (verbose) {
-                    console.log(chalk.blue('Wrote') + chalk.green(JSON.stringify(data)));
+                    console.error(chalk.red(`Error: ${e}`))
+                } else {
+                    console.error(chalk.red(`Error occurred while generating data (run in verbose mode for details)`));
                 }
             }
-
-            promisesArray.push(writeRecord(path.resolve(fileList[i]), beautify(record, null, 2)));
-            //Write all of the data once.
-            // await writeRecord(path.resolve(fileList[i]), beautify(record, null, 2));
-        } catch(e) {
-            if (verbose) {
-                console.error(chalk.red(`Error: ${e}`))
-            } else {
-                console.error(chalk.red(`Error occurred while generating data (run in verbose mode for details)`));
-            }
         }
+        Promise.all(promisesArray).catch(e => {
+            console.error(chalk.red(`Error: ${e}`));
+        })
+    } catch (e) {
+        console.error(chalk.red(`Error: ${e}`))
     }
-    Promise.all(promisesArray).catch(e => {
-        console.error(chalk.red(`Error: ${e}`));
-    })
-
 }
 
 module.exports = FileLoader;
