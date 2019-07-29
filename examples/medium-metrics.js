@@ -1,5 +1,5 @@
 module.exports = {
-  "amount": 1,
+  "amount": 10,
   "rootPath": "/metrics",
   "schema": {
     "definitions": {
@@ -16,8 +16,10 @@ module.exports = {
           "Employed": { "$ref": "#/definitions/NumberRange" },
           "Unemployed": { "$ref": "#/definitions/NumberRange" },
           "Bums": { "$ref": "#/definitions/NumberRange" },
+          "Looking": { "$ref": "#/definitions/NumberRange" },
+          "Lucas": { "$ref": "#/definitions/NumberRange" },
         },
-        "required": ["name", "Employed", "Unemployed", "Bums"]
+        "required": ["name", "Employed", "Unemployed", "Bums", "Looking", "Lucas"]
       },
       "AreaChartData2D": {
         "type": "array",
@@ -50,7 +52,7 @@ module.exports = {
         "properties": {
           "type": {
             "type": "string",
-            "pattern": "AreaChart|BarChart|LineChart|ComposedChart|PieChart|RadarChart|RadialBarChart|ScatterChart|Treemap",
+            "pattern": "AreaChart|BarChart|LineChart|PieChart",
           },
           "data": {
             "type": "array",

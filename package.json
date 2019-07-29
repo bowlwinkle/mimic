@@ -9,7 +9,7 @@
   "author": "Lucas Gansberg",
   "license": "MIT",
   "bin": {
-    "mdgen": "index.js"
+    "mimic": "index.js"
   },
   "dependencies": {
     "axios": "^0.18.1",

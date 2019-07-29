@@ -152,20 +152,25 @@ class MDServer {
 		this.port = port;
 		this.app = express();
 		this.initializedCB = initialized;
+		this.schema = schema;
 
 		//Setup server
 		this.app.use(bodyParser.urlencoded({ extended: false }));
 		this.app.use(bodyParser.json());
 		this.app.use(cors());
 
-		if (typeof (schema) !== 'object') {
-			this.schema = ConsumeFile(schema);
+		if (typeof (this.schema) !== 'object') {
+			this.schema = ConsumeFile(this.schema);
 		}
 
-		const loadingPromises = this.constructRoutes(this.schema);
-		Promise.all(loadingPromises).then(() => {
-			this.start();
-		});
+		if (this.schema) {
+			const loadingPromises = this.constructRoutes(this.schema);
+			Promise.all(loadingPromises).then(() => {
+				this.start();
+			});
+		} else {
+			process.exit(1);
+		}
 	}
 
 	constructRoutes(schema) {

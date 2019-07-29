@@ -1,5 +1,5 @@
 module.exports = {
-  "amount": 100,
+  "amount": 5,
   "rootPath": "/metrics",
   "schema": {
     "type": "object",
